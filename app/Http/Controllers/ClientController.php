@@ -16,11 +16,11 @@ class ClientController extends Controller
     {
         $conferences = session('conferences', []);
         $conference = collect($conferences)->firstWhere('id', $id);
-
+    
         if (!$conference) {
             return redirect()->route('client.conferences')->with('error', 'Konferencija nerasta.');
         }
-
+    
         return view('client.conferences.show', compact('conference'));
     }
 

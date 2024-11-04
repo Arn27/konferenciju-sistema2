@@ -4,10 +4,10 @@
         @method('PUT')
     @endif
 
-    <!-- Display validation errors -->
+    <!-- Display Validation Errors -->
     @if($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul class="mb-0">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach

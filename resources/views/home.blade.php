@@ -3,11 +3,9 @@
 @section('title', __('messages.home'))
 
 @section('content')
-<h1>{{ __('messages.welcome') }}</h1>
-<p>{{ __('messages.student_info') }}: [Tavo vardas, pavardė, grupė]</p>
-<ul>
-    <li><a href="{{ route('client.conferences') }}">{{ __('messages.client_subsystem') }}</a></li>
-    <li><a href="{{ route('employee.conferences') }}">{{ __('messages.employee_subsystem') }}</a></li>
-    <li><a href="{{ route('admin.dashboard') }}">{{ __('messages.admin_subsystem') }}</a></li>
-</ul>
+<div class="jumbotron text-center">
+    <h1 class="display-4">{{ __('messages.welcome') }}</h1>
+    <p class="lead">{{ __('messages.use_navigation') }}</p>
+    <a class="btn btn-primary btn-lg" href="{{ route('client.conferences') }}" role="button">{{ __('messages.view_conferences') }}</a>
+</div>
 @endsection
