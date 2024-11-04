@@ -8,5 +8,14 @@ return [
     'employee_subsystem' => 'Darbuotojo posistemis',
     'admin_subsystem' => 'Administratoriaus posistemis',
     'user' => 'Naudotojas',
-    'logout' => 'Atsijungti'
+    'logout' => 'Atsijungti',
+    'create_conference' => 'Sukurti konferenciją',
+    'edit_conference' => 'Redaguoti konferenciją',
+    'title' => 'Pavadinimas',
+    'description' => 'Aprašymas',
+    'lecturers' => 'Lektoriai',
+    'date' => 'Data',
+    'time' => 'Laikas',
+    'address' => 'Adresas',
+    'save' => 'Išsaugoti'
 ];

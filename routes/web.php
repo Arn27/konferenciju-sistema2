@@ -2,9 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ConferenceController;
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
 
 Route::prefix('client')->group(function () {
     Route::get('/conferences', [ClientController::class, 'index'])->name('client.conferences');
@@ -19,16 +26,16 @@ Route::prefix('employee')->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [Admin\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/users', [Admin\UserController::class, 'index'])->name('admin.users.index');
-    Route::get('/users/{id}/edit', [Admin\UserController::class, 'edit'])->name('admin.users.edit');
-    Route::post('/users/{id}', [Admin\UserController::class, 'update'])->name('admin.users.update');
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
 
-    Route::get('/conferences', [Admin\ConferenceController::class, 'index'])->name('admin.conferences.index');
-    Route::get('/conferences/create', [Admin\ConferenceController::class, 'create'])->name('admin.conferences.create');
-    Route::post('/conferences', [Admin\ConferenceController::class, 'store'])->name('admin.conferences.store');
-    Route::get('/conferences/{id}/edit', [Admin\ConferenceController::class, 'edit'])->name('admin.conferences.edit');
-    Route::post('/conferences/{id}', [Admin\ConferenceController::class, 'update'])->name('admin.conferences.update');
-    Route::post('/conferences/{id}/delete', [Admin\ConferenceController::class, 'destroy'])->name('admin.conferences.destroy');
+    Route::get('/conferences', [ConferenceController::class, 'index'])->name('admin.conferences.index');
+    Route::get('/conferences/create', [ConferenceController::class, 'create'])->name('admin.conferences.create');
+    Route::post('/conferences', [ConferenceController::class, 'store'])->name('admin.conferences.store');
+    Route::get('/conferences/{id}/edit', [ConferenceController::class, 'edit'])->name('admin.conferences.edit');
+    Route::put('/conferences/{id}', [ConferenceController::class, 'update'])->name('admin.conferences.update');
+    Route::delete('/conferences/{id}', [ConferenceController::class, 'destroy'])->name('admin.conferences.destroy');
 });
