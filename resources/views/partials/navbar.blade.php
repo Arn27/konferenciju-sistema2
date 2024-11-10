@@ -6,35 +6,43 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                @if(auth()->check() && auth()->user()->hasRole('client'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('client.conferences') }}">{{ __('messages.client_subsystem') }}</a>
-                    </li>
-                @endif
-                @if(auth()->check() && auth()->user()->hasRole('employee'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('employee.conferences') }}">{{ __('messages.employee_subsystem') }}</a>
-                    </li>
-                @endif
-                @if(auth()->check() && auth()->user()->hasRole('admin'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('messages.admin_subsystem') }}</a>
-                    </li>
-                @endif
-
+                <!-- Show role-based links if the user is logged in -->
                 @if(auth()->check())
+                    @if(auth()->user()->hasRole('client'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('client.conferences') }}">{{ __('messages.client_subsystem') }}</a>
+                        </li>
+                    @endif
+                    @if(auth()->user()->hasRole('employee'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('employee.conferences') }}">{{ __('messages.employee_subsystem') }}</a>
+                        </li>
+                    @endif
+                    @if(auth()->user()->hasRole('admin'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('messages.admin_subsystem') }}</a>
+                        </li>
+                    @endif
+
+                    <!-- Display user name and logout -->
                     <li class="nav-item">
-                        <span class="navbar-text">
-                            {{ __('messages.user') }}: {{ auth()->user()->name }}
-                        </span>
+                        <div class="d-flex align-items-center">
+                            <span class="navbar-text mr-3">
+                                {{ __('messages.user') }}: {{ auth()->user()->name }}
+                            </span>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="nav-link btn btn-link p-0">{{ __('messages.logout') }}</button>
+                            </form>
+                        </div>
+                    </li>
+                @else
+                    <!-- Show login and register links if the user is not logged in -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('messages.login') }}</a>
                     </li>
                     <li class="nav-item">
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="nav-link btn btn-link" style="display: inline; padding: 0; margin: 0; border: none;">
-                                {{ __('messages.logout') }}
-                            </button>
-                        </form>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register') }}</a>
                     </li>
                 @endif
             </ul>

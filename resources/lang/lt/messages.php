@@ -8,6 +8,7 @@ return [
     'employee_subsystem' => 'Darbuotojo posistemis',
     'admin_subsystem' => 'Administratoriaus posistemis',
     'user' => 'Naudotojas',
+    'login' => 'Prisijungti',
     'logout' => 'Atsijungti',
     'create_conference' => 'Sukurti konferenciją',
     'edit_conference' => 'Redaguoti konferenciją',

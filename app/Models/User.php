@@ -2,50 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role_id', // Ensure role_id is fillable if you assign roles during creation
-    ];
+    protected $fillable = ['name', 'email', 'password', 'role_id'];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * Define the relationship with the Role model.
-     */
+    // Define a one-to-many or one-to-one relationship with Role
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    /**
-     * Define the relationship with the Conference model for registrations.
-     */
-    public function conferences()
-    {
-        return $this->belongsToMany(Conference::class, 'users_conferences');
-    }
-
-    /**
-     * Check if the user has a specific role.
-     */
+    // Check if the user has a specific role
     public function hasRole($roleName)
     {
         return $this->role && $this->role->name === $roleName;

@@ -8,6 +8,7 @@ return [
     'employee_subsystem' => 'Employee Subsystem',
     'admin_subsystem' => 'Administrator Subsystem',
     'user' => 'User',
+    'login' => 'Login',
     'logout' => 'Logout',
     'create_conference' => 'Create Conference',
     'edit_conference' => 'Edit Conference',
