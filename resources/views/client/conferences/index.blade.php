@@ -19,8 +19,18 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $conference['title'] }}</h5>
                         <p class="card-text">{{ Str::limit($conference['description'], 100) }}</p>
-                        <p class="card-text"><small class="text-muted">{{ __('messages.date') }}: {{ $conference['date'] }}</small></p>
-                        <a href="{{ route('client.conferences.show', $conference['id']) }}" class="btn btn-primary mt-auto">{{ __('messages.view_conference') }}</a>
+                        <p class="card-text">
+                            <small class="text-muted">{{ __('messages.date') }}: {{ $conference['date'] }}</small>
+                        </p>
+
+                        <a href="{{ route('client.conferences.show', $conference['id']) }}" class="btn btn-primary mt-auto mb-2">
+                            {{ __('messages.view_conference') }}
+                        </a>
+
+                        <form action="{{ route('client.conferences.register.submit', $conference['id']) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success mt-auto">{{ __('messages.register') }}</button>
+                        </form>
                     </div>
                 </div>
             </div>
