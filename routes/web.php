@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ConferenceController;
 use App\Http\Middleware\LanguageMiddleware;
 
-
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'lt'])) {
         session(['locale' => $locale]);
