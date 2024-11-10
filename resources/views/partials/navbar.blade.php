@@ -24,6 +24,17 @@
                     <a class="nav-link disabled" href="#">{{ __('messages.logout') }}</a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ strtoupper(app()->getLocale()) }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                    <a class="dropdown-item" href="{{ route('change_language', ['locale' => 'en']) }}">English</a>
+                    <a class="dropdown-item" href="{{ route('change_language', ['locale' => 'lt']) }}">Lietuvių</a>
+                </div>
+            </li>
+        </ul>
         </div>
     </div>
 </nav>
