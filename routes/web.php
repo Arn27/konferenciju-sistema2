@@ -49,3 +49,5 @@ Route::middleware([LanguageMiddleware::class])->group(function () {
         Route::delete('/conferences/{id}', [ConferenceController::class, 'destroy'])->name('admin.conferences.destroy');
     });
 });
+
+Auth::routes();

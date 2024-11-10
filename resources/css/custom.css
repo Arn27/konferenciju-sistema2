@@ -1,5 +1,8 @@
 body {
-    background-color: #ff0000 !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .navbar {
@@ -41,10 +44,12 @@ body {
 }
 
 footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 1rem 0;
     position: relative;
 }
 
 main {
-    margin-bottom: 0;
+    flex: 1;
 }
-

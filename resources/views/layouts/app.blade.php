@@ -9,15 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-@include('partials.navbar')
-    <div class="container mt-4">
-        @yield('content')
+    <div id="app" class="d-flex flex-column min-vh-100">
+        <!-- Navbar -->
+        @include('partials.navbar')
+
+        <!-- Main Content Area -->
+        <main class="container mt-4 flex-grow-1">
+            @yield('content')
+        </main>
+
+        <!-- Footer -->
+        @include('partials.footer')
     </div>
 
-    <footer class="bg-light text-center py-3 mt-4">
-        <p>&copy; {{ date('Y') }} VVK</p>
-    </footer>
-
+    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
