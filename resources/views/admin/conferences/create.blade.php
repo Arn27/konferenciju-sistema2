@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', __('messages.create_conference'))
+@section('title', __('Create Conference'))
 
 @section('content')
-<h1>{{ __('messages.create_conference') }}</h1>
+    <h1>{{ __('Create New Conference') }}</h1>
 
-@include('admin.conferences.form', [
-    'action' => route('admin.conferences.store'),
-    'method' => 'POST',
-    'conference' => null
-])
+    <form action="{{ route('admin.conferences.store') }}" method="POST">
+        @csrf
+        @include('admin.conferences.form')
+        <button type="submit" class="btn btn-primary">{{ __('Save Conference') }}</button>
+    </form>
 @endsection

@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
-@section('title', __('messages.edit_conference'))
+@section('title', __('Edit Conference'))
 
 @section('content')
-<h1>{{ __('messages.edit_conference') }}</h1>
+    <h1>{{ __('Edit Conference') }}</h1>
 
-@include('admin.conferences.form', [
-    'action' => route('admin.conferences.update', $conference['id']),
-    'method' => 'PUT',
-    'conference' => $conference
-])
+    <form action="{{ route('admin.conferences.update', $conference->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        @include('admin.conferences.form')
+        <button type="submit" class="btn btn-primary">{{ __('Update Conference') }}</button>
+    </form>
 @endsection
