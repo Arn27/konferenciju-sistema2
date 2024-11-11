@@ -10,8 +10,8 @@ class ConferenceController extends Controller
 {
     public function index()
     {
-        $conferences = Conference::all();
-        return view('admin.conferences.index', compact('conferences'));
+        $conferences = Conference::with('users')->get(); // Include 'users' to avoid multiple queries
+        return view('client.conferences.index', compact('conferences'));
     }
 
     public function create()
@@ -31,7 +31,7 @@ class ConferenceController extends Controller
         Conference::create($request->all());
         
         // Redirect to 'conferences.index' instead of 'admin.conferences.index'
-        return redirect()->route('conferences.index')->with('success', 'Conference created successfully.');
+        return redirect()->route('admin.conferences.index')->with('success', 'Conference created successfully.');
     }
 
     public function edit($id)
@@ -53,7 +53,7 @@ class ConferenceController extends Controller
         $conference->update($request->all());
 
         // Redirect to 'conferences.index' instead of 'admin.conferences.index'
-        return redirect()->route('conferences.index')->with('success', 'Conference updated successfully.');
+        return redirect()->route('admin.conferences.index')->with('success', 'Conference updated successfully.');
     }
 
     public function destroy($id)
@@ -62,6 +62,15 @@ class ConferenceController extends Controller
         $conference->delete();
 
         // Redirect to 'conferences.index' instead of 'admin.conferences.index'
-        return redirect()->route('conferences.index')->with('success', 'Conference deleted successfully.');
+        return redirect()->route('admin.conferences.index')->with('success', 'Conference deleted successfully.');
+    }
+
+    public function showRegisteredUsers($conferenceId)
+    {
+        // Retrieve the conference along with the users registered for it
+        $conference = Conference::with('users')->findOrFail($conferenceId);
+
+        // Pass the conference and its users to the view
+        return view('admin.conferences.registered_users', compact('conference'));
     }
 }

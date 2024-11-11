@@ -40,5 +40,6 @@ return [
     'use_navigation' => 'Naudokite navigacijos meniu norėdami pasiekti skirtingas skiltis.',
     'view_conferences' => 'Peržiūrėti konferencijas',
     'edit' => 'Keisti',
-    'actions' => 'Veiksmai'
+    'actions' => 'Veiksmai',
+    'all_conferences' => 'Visos Konferencijos'
 ];

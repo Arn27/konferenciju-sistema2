@@ -34,8 +34,8 @@ Route::middleware(['auth', LanguageMiddleware::class])->group(function () {
     Route::prefix('client')->middleware([RoleMiddleware::class . ':client'])->group(function () {
         Route::get('/conferences', [ClientController::class, 'index'])->name('client.conferences');
         Route::get('/conferences/{id}', [ClientController::class, 'show'])->name('client.conferences.show');
-        Route::get('/conferences/{id}/register', [ClientController::class, 'registerForm'])->name('client.conferences.register');
         Route::post('/conferences/{id}/register', [ClientController::class, 'register'])->name('client.conferences.register.submit');
+        Route::delete('/conferences/{id}/cancel', [ClientController::class, 'cancelRegistration'])->name('client.conferences.cancel');
     });
 
     // Employee routes
@@ -47,11 +47,22 @@ Route::middleware(['auth', LanguageMiddleware::class])->group(function () {
     // Admin routes
     Route::prefix('admin')->middleware([RoleMiddleware::class . ':admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
-
+    
         // User management
         Route::resource('users', UserController::class)->except(['show', 'create', 'store', 'destroy']);
-
-        // Conference management
-        Route::resource('conferences', ConferenceController::class)->except(['show']);
+    
+        // Conference management with specific names for admin routes
+        Route::resource('conferences', ConferenceController::class)->except(['show'])->names([
+            'index' => 'admin.conferences.index',
+            'create' => 'admin.conferences.create',
+            'store' => 'admin.conferences.store',
+            'edit' => 'admin.conferences.edit',
+            'update' => 'admin.conferences.update',
+            'destroy' => 'admin.conferences.destroy',
+        ]);
+        
+        // Route for viewing registered users for a specific conference
+        Route::get('conferences/{id}/registered-users', [ConferenceController::class, 'showRegisteredUsers'])->name('admin.conferences.registered_users');
     });
+    
 });

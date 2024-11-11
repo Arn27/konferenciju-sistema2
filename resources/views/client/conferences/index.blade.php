@@ -1,42 +1,43 @@
 @extends('layouts.app')
 
-@section('title', __('messages.conferences'))
+@section('title', __('Conferences'))
 
 @section('content')
-    <h1 class="mb-4">{{ __('messages.conferences') }}</h1>
+    <h1>{{ __('Conferences') }}</h1>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(count($conferences) > 0)
-        <div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ __('Title') }}</th>
+                <th>{{ __('Date') }}</th>
+                <th>{{ __('Location') }}</th>
+                <th>{{ __('Actions') }}</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach($conferences as $conference)
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $conference['title'] }}</h5>
-                            <p class="card-text">{{ Str::limit($conference['description'], 100) }}</p>
-                            <p class="card-text">
-                                <small class="text-muted">{{ __('messages.date') }}: {{ $conference['date'] }}</small>
-                            </p>
-
-                            <a href="{{ route('client.conferences.show', $conference['id']) }}" class="btn btn-primary mt-auto mb-2">
-                                {{ __('messages.view_conference') }}
-                            </a>
-
-                            <form action="{{ route('client.conferences.register.submit', $conference['id']) }}" method="POST">
+                <tr>
+                    <td>{{ $conference->title }}</td>
+                    <td>{{ $conference->date }}</td>
+                    <td>{{ $conference->location }}</td>
+                    <td>
+                        <!-- Show "Cancel Registration" if the user is already registered, otherwise "Register" -->
+                        @if($conference->users->contains(auth()->user()))
+                            <form action="{{ route('client.conferences.cancel', $conference->id) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-success mt-auto">{{ __('messages.register') }}</button>
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">{{ __('Cancel Registration') }}</button>
                             </form>
-                        </div>
-                    </div>
-                </div>
+                        @else
+                            <form action="{{ route('client.conferences.register.submit', $conference->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
+                            </form>
+                        @endif
+                        <a href="{{ route('client.conferences.show', $conference->id) }}" class="btn btn-secondary">{{ __('View Conference') }}</a>
+                    </td>
+                </tr>
             @endforeach
-        </div>
-    @else
-        <p>{{ __('messages.no_conferences') }}</p>
-    @endif
+        </tbody>
+    </table>
 @endsection

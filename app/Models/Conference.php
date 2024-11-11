@@ -16,9 +16,8 @@ class Conference extends Model
         'location'
     ];
 
-
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_conferences');
     }
-}
+}    

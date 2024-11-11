@@ -11,9 +11,11 @@
         </div>
     @endif
 
-    <div class="mb-4">
-        <a href="{{ route('conferences.create') }}" class="btn btn-primary">{{ __('Create New Conference') }}</a>
-    </div>
+    @can('admin') <!-- Ensure only admin users can see these actions -->
+        <div class="mb-4">
+            <a href="{{ route('admin.conferences.create') }}" class="btn btn-primary">{{ __('Create New Conference') }}</a>
+        </div>
+    @endcan
 
     <table class="table">
         <thead>
@@ -31,12 +33,14 @@
                     <td>{{ $conference->date }}</td>
                     <td>{{ $conference->location }}</td>
                     <td>
-                        <a href="{{ route('conferences.edit', $conference->id) }}" class="btn btn-warning">{{ __('Edit') }}</a>
-                        <form action="{{ route('conferences.destroy', $conference->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Are you sure?') }}')">{{ __('Delete') }}</button>
-                        </form>
+                        @can('admin') <!-- Ensure only admin users can see these actions -->
+                            <a href="{{ route('admin.conferences.edit', $conference->id) }}" class="btn btn-warning">{{ __('Edit') }}</a>
+                            <form action="{{ route('admin.conferences.destroy', $conference->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Are you sure?') }}')">{{ __('Delete') }}</button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

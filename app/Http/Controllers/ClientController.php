@@ -9,19 +9,13 @@ class ClientController extends Controller
 {
     public function index()
     {
-        // Retrieve conferences from the database instead of the session
-        $conferences = Conference::all();
+        $conferences = Conference::with('users')->get(); // Include 'users' relationship to check registration status
         return view('client.conferences.index', compact('conferences'));
     }
 
     public function show($id)
     {
-        $conference = Conference::find($id);
-
-        if (!$conference) {
-            return redirect()->route('client.conferences')->with('error', 'Konferencija nerasta.');
-        }
-
+        $conference = Conference::with('users')->findOrFail($id);
         return view('client.conferences.show', compact('conference'));
     }
 
@@ -31,9 +25,31 @@ class ClientController extends Controller
         return view('client.conferences.register', compact('conference'));
     }
 
-    public function register(Request $request, $id)
+    public function register($id)
     {
-        // Register logic (e.g., saving registration details)
-        return redirect()->route('client.conferences')->with('success', 'Sėkmingai užsiregistravote į konferenciją.');
+        $user = auth()->user();
+        $conference = Conference::findOrFail($id);
+    
+        // Attach the user to the conference if not already registered
+        if (!$conference->users()->where('user_id', $user->id)->exists()) {
+            $conference->users()->attach($user->id);
+        }
+    
+        return redirect()->route('client.conferences', $conference->id)->with('success', 'Successfully registered for the conference.');
     }
+    
+
+    public function cancelRegistration($id)
+    {
+        $user = auth()->user();
+        $conference = Conference::findOrFail($id);
+    
+        // Detach the user from the conference to cancel registration
+        $conference->users()->detach($user->id);
+    
+        return redirect()->route('client.conferences', $conference->id)->with('success', 'Registration cancelled successfully.');
+    }
+    
+
+    
 }

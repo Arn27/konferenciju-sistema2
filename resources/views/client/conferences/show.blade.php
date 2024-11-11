@@ -13,8 +13,18 @@
         <p><strong>{{ __('messages.lecturers') }}:</strong> {{ $conference->lecturers }}</p>
     </div>
 
+    @if($conference->users->contains(auth()->user()))
+    <p>You are registered for this conference.</p>
+    <form action="{{ route('client.conferences.cancel', $conference->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Cancel Registration</button>
+    </form>
+@else
     <form action="{{ route('client.conferences.register.submit', $conference->id) }}" method="POST">
         @csrf
-        <button type="submit" class="btn btn-success">{{ __('messages.register') }}</button>
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
+@endif
+
 @endsection
