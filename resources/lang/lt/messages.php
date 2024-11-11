@@ -38,5 +38,7 @@ return [
     'admin_dashboard' => 'Administratoriaus Valdymo Skydas',
     'welcome_admin' => 'Sveiki atvykę į administratoriaus valdymo skydą.',
     'use_navigation' => 'Naudokite navigacijos meniu norėdami pasiekti skirtingas skiltis.',
-    'view_conferences' => 'Peržiūrėti konferencijas'
+    'view_conferences' => 'Peržiūrėti konferencijas',
+    'edit' => 'Keisti',
+    'actions' => 'Veiksmai'
 ];

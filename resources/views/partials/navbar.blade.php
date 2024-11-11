@@ -24,6 +24,7 @@
                         </li>
                     @endif
 
+
                     <!-- Display user name and logout -->
                     <li class="nav-item">
                         <div class="d-flex align-items-center">

@@ -4,54 +4,36 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
+    // Display a list of all users
     public function index()
     {
-        $users = session('users', []);
-
+        $users = User::all();
         return view('admin.users.index', compact('users'));
     }
 
+    // Show the form for editing a specific user
     public function edit($id)
     {
-        $users = session('users', []);
-        $user = collect($users)->firstWhere('id', $id);
-
-        if (!$user) {
-            return redirect()->route('admin.users.index')->with('error', 'Naudotojas nerastas.');
-        }
-
+        $user = User::findOrFail($id);
         return view('admin.users.edit', compact('user'));
     }
 
+    // Update the specified user in the database
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        $users = session('users', []);
-        $updated = false;
-
-        foreach ($users as &$user) {
-            if ($user['id'] == $id) {
-                $user['first_name'] = $request->input('first_name');
-                $user['last_name'] = $request->input('last_name');
-                $user['email'] = $request->input('email');
-                $updated = true;
-                break;
-            }
-        }
-
-        if ($updated) {
-            session(['users' => $users]);
-            return redirect()->route('admin.users.index')->with('success', 'Naudotojas sėkmingai atnaujintas.');
-        } else {
-            return redirect()->route('admin.users.index')->with('error', 'Naudotojas nerastas.');
-        }
+        $user = User::findOrFail($id);
+        $user->update($request->only(['name', 'email']));
+        
+        // Redirect to 'users.index' instead of 'admin.users.index'
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 }

@@ -4,86 +4,25 @@
         @method('PUT')
     @endif
 
-    <!-- Display Validation Errors -->
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <!-- Title Field -->
     <div class="form-group">
-        <label for="title">{{ __('messages.title') }}</label>
-        <input 
-            type="text" 
-            name="title" 
-            id="title" 
-            class="form-control" 
-            value="{{ old('title', $conference['title'] ?? '') }}" 
-            required>
+        <label for="title">{{ __('Title') }}</label>
+        <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $conference->title ?? '') }}" required>
     </div>
 
-    <!-- Description Field -->
     <div class="form-group">
-        <label for="description">{{ __('messages.description') }}</label>
-        <textarea 
-            name="description" 
-            id="description" 
-            class="form-control" 
-            required>{{ old('description', $conference['description'] ?? '') }}</textarea>
+        <label for="description">{{ __('Description') }}</label>
+        <textarea name="description" id="description" class="form-control" required>{{ old('description', $conference->description ?? '') }}</textarea>
     </div>
 
-    <!-- Lecturers Field -->
     <div class="form-group">
-        <label for="lecturers">{{ __('messages.lecturers') }}</label>
-        <input 
-            type="text" 
-            name="lecturers" 
-            id="lecturers" 
-            class="form-control" 
-            value="{{ old('lecturers', $conference['lecturers'] ?? '') }}" 
-            required>
+        <label for="date">{{ __('Date') }}</label>
+        <input type="date" name="date" id="date" class="form-control" value="{{ old('date', $conference->date ?? '') }}" required>
     </div>
 
-    <!-- Date Field -->
     <div class="form-group">
-        <label for="date">{{ __('messages.date') }}</label>
-        <input 
-            type="date" 
-            name="date" 
-            id="date" 
-            class="form-control" 
-            value="{{ old('date', $conference['date'] ?? '') }}" 
-            required>
+        <label for="location">{{ __('Location') }}</label>
+        <input type="text" name="location" id="location" class="form-control" value="{{ old('location', $conference->location ?? '') }}" required>
     </div>
 
-    <!-- Time Field -->
-    <div class="form-group">
-        <label for="time">{{ __('messages.time') }}</label>
-        <input 
-            type="time" 
-            name="time" 
-            id="time" 
-            class="form-control" 
-            value="{{ old('time', $conference['time'] ?? '') }}" 
-            required>
-    </div>
-
-    <!-- Address Field -->
-    <div class="form-group">
-        <label for="address">{{ __('messages.address') }}</label>
-        <input 
-            type="text" 
-            name="address" 
-            id="address" 
-            class="form-control" 
-            value="{{ old('address', $conference['address'] ?? '') }}" 
-            required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">{{ __('messages.save') }}</button>
+    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
 </form>

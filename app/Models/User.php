@@ -22,4 +22,9 @@ class User extends Authenticatable
     {
         return $this->role && $this->role->name === $roleName;
     }
+
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'user_conference');
+    }
 }

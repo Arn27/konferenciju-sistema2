@@ -38,5 +38,7 @@ return [
     'admin_dashboard' => 'Admin Dashboard',
     'welcome_admin' => 'Welcome to the Admin Dashboard.',
     'use_navigation' => 'Please use the navigation menu to access different sections.',
-    'view_conferences' => 'View Conferences'
+    'view_conferences' => 'View Conferences',
+    'edit' => 'Edit',
+    'actions' => 'Actions'
 ];
